@@ -2,7 +2,7 @@
 
 ## Description
 
-A multipage web application that allows users to search NASDAQ stock exchange companies by symbol, see a more detailed company profile and view and delete their search history. The app was built using HTML5, CSS3, Bootstrap, Vanilla JavaScript, Chart.js, RESTful API, Node.js, Express and MongoDB. This project makes use of Object Oriented Programming by way of JavaScipt classes.
+A multipage web application that allows users to search NASDAQ stock exchange companies by symbol, see a more detailed company profile and view and delete their search history. The app was built using HTML5, CSS3, Bootstrap, Vanilla JavaScript, Chart.js, REST API, Node.js, Express and MongoDB. This project makes use of Object Oriented Programming by way of JavaScript classes.
 
 This project is based on the Financial Modeling Prep API. You can find all the endpoints and the official documentation here: [Financial Modeling Prep API Documentation](https://financialmodelingprep.com/developer/docs/).
 
