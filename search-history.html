@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search History</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <a href="/index.html" class="clearfix">
+            <button class="btn btn-sm btn-link px-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                </svg>
+                Back
+            </button>
+        </a>
+
+        <h1 class="text-center py-5"><span class="title">Search</span> History</h1>
+
+        <div class="search-history">
+            <ul id="search-history" class="list-group list-group-flush p-0"></ul>
+        </div>
+    </div>
+
+    <script src="./api.js"></script>
+    <script src="./js/SearchForm.js"></script>
+    <script>
+        const searchList = document.getElementById('search-history');
+
+        async function showSearchHistory() {
+            const companies = await searchHistoryViaInternalServer();
+
+            const lis = companies.forEach(company => {
+
+                if (company.profile) {
+                    const li = document.createElement('div');
+                    li.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+                    const linkWrapper = document.createElement('div')
+
+                    const link = document.createElement('a');
+                    link.href = "/index.html";
+                    link.className = 'd-flex align-items-center justify-content-between';
+
+                    const nameLink = document.createElement('h6');
+                    nameLink.innerText = company.profile.companyName + `(${company.symbol})`;
+                    link.appendChild(nameLink);
+
+                    const searchDateDiv = document.createElement('h6');
+                    searchDateDiv.innerText = company.searchDate;
+                    searchDateDiv.className = 'text-muted';
+                    link.appendChild(searchDateDiv);
+                    linkWrapper.appendChild(link);
+
+                    const deleteWrapper = document.createElement('div');
+                    const deleteButton = document.createElement('button');
+                    deleteButton.innerText = "Delete";
+                    deleteButton.className = 'btn btn-outline-dark btn-sm';
+                    deleteWrapper.appendChild(deleteButton);
+
+                    li.appendChild(linkWrapper);
+                    li.appendChild(deleteWrapper);
+                    searchList.appendChild(li);
+
+                    deleteButton.addEventListener('click', (event) => {
+                        searchIDViaInternalServer(company._id)
+                        window.location.reload();
+                    });
+
+                    // link.addEventListener('click', searchCompanies(searchTerm));
+                }
+            })
+        }
+        showSearchHistory();
+    </script>
+</body>
+
+</html>
